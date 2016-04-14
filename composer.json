@@ -1,0 +1,20 @@
+{
+    "name": "imdwho?",
+    "description": "Find actors by searching for two films they were in.",
+    "keywords": ["imdb"],
+    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Unlikenesses",
+            "email": "unlikenesses@gmail.com",
+            "homepage": "http://www.twitter.com/unlikenesses"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "slim/slim": "^3.1",
+        "slim/php-view": "^2.0",
+        "guzzlehttp/guzzle": "~6.0"
+    }
+}

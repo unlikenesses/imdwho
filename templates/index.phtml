@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>IMDWHo?</title>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <style>
+            body {
+              padding-top: 20px;
+              padding-bottom: 20px;
+              font-family: Roboto, sans-serif;
+              font-weight: 400;
+            }
+            @media (min-width: 768px) {
+              .container {
+                max-width: 730px;
+              }
+            }
+            .jumbotron {
+              text-align: center;
+              background: #0A4871;
+              color: white;
+              border-bottom: 1px solid #e5e5e5;
+            }
+            .footer {
+              padding-top: 19px;
+              color: #777;
+              font-size: 12px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h1>IMDWho?</h1>
+                <p>Search for actors by naming two films they were in.</p>
+            </div>
+            <form action="search" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="film1" placeholder="First film" value="<?php echo $film1 ?>">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="film2" placeholder="Second film" value="<?php echo $film2 ?>">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-default btn-lg" value="Search">
+                </div>
+            </form>
+            <?php 
+            if ( ! empty($results))
+            {
+            ?>
+                <p>You searched for &ldquo;<?php echo $film1 ?>&rdquo; and &ldquo;<?php echo $film2 ?>&rdquo;.</p>
+                <?php 
+                if (sizeof($results['intersect']) > 0) 
+                { 
+                ?>
+                    <div class="alert alert-success">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> The following actor(s) are in both films:
+                        <ul>
+                        <?php 
+                            foreach ($results['intersect'] as $actor)
+                            {
+                                echo '<li>' . $actor . '</li>';
+                            }
+                        ?>
+                        </ul>
+                    </div>
+                <?php 
+                } else { 
+                ?>
+                    <div class="alert alert-danger">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> No actors were found who were in both films.
+                    </div>
+                <?php 
+                } 
+                ?>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p>
+                            <strong>Actors in &ldquo;<?php echo $film1 ?>&rdquo;:</strong>
+                            <ul>
+                                <?php foreach ($results['actors1'] as $actor)
+                                {
+                                    echo '<li>' . $actor . '</li>';
+                                }
+                                ?>
+                            </ul>
+                        </p>
+                    </div>
+                    <div class="col-lg-6">
+                        <p>
+                            <strong>Actors in &ldquo;<?php echo $film2 ?>&rdquo;:</strong>
+                            <ul>
+                                <?php foreach ($results['actors2'] as $actor)
+                                {
+                                    echo '<li>' . $actor . '</li>';
+                                }
+                                ?>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
+            <footer class="footer">
+                <p><a href="https://github.com/unlikenesses/imdwho" target="_blank">github.com/unlikenesses/imdwho</a></p>
+                <p>Built with the <a href="http://www.slimframework.com" target="_blank">Slim Framework</a> and <a href="http://www.omdbapi.com/" target="_blank">OMDb API</a> consumed by <a href="https://github.com/guzzle/guzzle" target="_blank">Guzzle</a></p>
+            </footer>
+        </div>
+    </body>
+</html>
